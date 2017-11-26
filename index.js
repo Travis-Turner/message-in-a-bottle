@@ -8,13 +8,14 @@ var app = express();
 
 var messageRoutes = require('./routes/message');
 
-
+app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/api/message', messageRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Root route');
+  res.sendFile('index.html');
 });
 
 app.listen(port, () => {

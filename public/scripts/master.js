@@ -1,0 +1,29 @@
+$(document).ready(function() {
+  const messageForm = $('#message-form');
+  const leaveBtn = $('#leave-btn');
+  const formBtn = $('#form-btn');
+  const readBtn = $('#read-btn');
+  const message = $('#message');
+  const messageTxt = $('#message-text');
+  const author = $('#author');
+
+  readBtn.on('click', () => {
+    var url = 'http://localhost:3000/api/message';
+    $.getJSON(url, (data) => {
+      let randNum = Math.floor((Math.random() * data.length));
+      let htmlData = data[randNum];
+      messageTxt.text(htmlData.message);
+      author.text("-" + htmlData.author);
+      message.fadeIn(() => {
+      });
+    });
+  });
+
+  formBtn.on('click', (e) => {
+    messageForm.fadeOut();
+  });
+
+  leaveBtn.on('click', () => {
+    messageForm.fadeIn();
+  });
+});
