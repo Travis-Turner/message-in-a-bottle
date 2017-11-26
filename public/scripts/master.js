@@ -6,9 +6,9 @@ $(document).ready(function() {
   const message = $('#message');
   const messageTxt = $('#message-text');
   const author = $('#author');
-
+  const url = '/api/message';
   readBtn.on('click', () => {
-    var url = 'http://localhost:3000/api/message';
+
     $.getJSON(url, (data) => {
       let randNum = Math.floor((Math.random() * data.length));
       let htmlData = data[randNum];
@@ -20,6 +20,12 @@ $(document).ready(function() {
   });
 
   formBtn.on('click', (e) => {
+    let messageData = $('#message-input').val();
+    let authorData = $('#author-input').val();
+    $.post(url, {
+      message: messageData,
+      author: authorData
+    });
     messageForm.fadeOut();
   });
 
